@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pop_orange"
+    android:padding="24dp">
+
+    <ImageView
+        android:id="@+id/btnBackNfcConfig"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@android:drawable/ic_menu_revert"
+        app:tint="@color/black"
+        android:background="@drawable/bg_btn_pop_action"
+        android:backgroundTint="@color/pop_yellow"
+        android:padding="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/lblTituloNfc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CONFIGURAR\nTORNO DIGITAL"
+        android:fontFamily="sans-serif-black"
+        android:textSize="28sp"
+        android:textColor="@color/black"
+        android:gravity="end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btnBackNfcConfig"
+        app:layout_constraintBottom_toBottomOf="@id/btnBackNfcConfig"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardInstrucciones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/lblTituloNfc">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="30dp"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/imgNfcConfigIcon"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_pop_check"
+                app:tint="@color/pop_blue"
+                android:layout_marginBottom="20dp"/>
+
+            <TextView
+                android:id="@+id/tvNfcConfigEstado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Acerca una etiqueta NFC..."
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CÓDIGO DETECTADO:"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:background="@color/pop_yellow"
+        android:paddingHorizontal="8dp"
+        android:layout_marginStart="10dp"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toTopOf="@id/cardCodigo"
+        app:layout_constraintStart_toStartOf="@id/cardCodigo"
+        android:layout_marginBottom="-10dp"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardCodigo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/cardInstrucciones">
+
+        <TextView
+            android:id="@+id/tvNfcConfigCodigo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="---"
+            android:fontFamily="monospace"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:background="@color/pop_purple"
+            android:padding="20dp"
+            android:gravity="center"/>
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNfcConfigGuardar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="GUARDAR COMO\nPRINCIPAL"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/pop_green"
+        android:backgroundTint="@color/black"
+        app:cornerRadius="16dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

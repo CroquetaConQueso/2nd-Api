@@ -16,6 +16,10 @@ public interface ApiService {
     @POST("api/login")
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
+    // Cierra la sesión del usuario autenticado
+    @POST("api/logout")
+    Call<Void> logout(@Header("Authorization") String authorization);
+
     // Dispara el flujo de recuperación de contraseña desde el identificador (email).
     @POST("api/reset-password")
     Call<Void> resetPassword(@Body ResetPasswordRequest request);

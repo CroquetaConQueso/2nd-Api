@@ -163,11 +163,7 @@ public class MainActivity extends AppCompatActivity implements NfcFichajeControl
         }
 
         if (btnLogout != null) {
-            btnLogout.setOnClickListener(v -> {
-                cancelRecordatorioWorker();
-                sessionManager.clearSession();
-                irALogin();
-            });
+            btnLogout.setOnClickListener(v -> cerrarSesionSegura());
         }
 
         if (btnAdminPanel != null) {
@@ -625,6 +621,55 @@ public class MainActivity extends AppCompatActivity implements NfcFichajeControl
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.setView(layout);
         toast.show();
+    }
+
+    private boolean esSesionInvalida(int code) {
+        return code == 401 || code == 422;
+    }
+
+    private void cerrarSesionSegura() {
+        cancelRecordatorioWorker();
+
+        String token = sessionManager.getAuthToken();
+        if (token == null || token.trim().isEmpty()) {
+            irALogin();
+            return;
+        }
+
+        RetrofitClient.getInstance()
+                .getMyApi()
+                .logout("Bearer " + token)
+                .enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        int code = response.code();
+
+                        if (response.isSuccessful()) {
+                            irALogin();
+                            return;
+                        }
+
+                        if (esSesionInvalida(code)) {
+                            irALogin();
+                            return;
+                        }
+
+                        mostrarToastPop(
+                                "No se pudo cerrar sesión en servidor (HTTP " + code + "). Se cerrará en el dispositivo.",
+                                false
+                        );
+                        irALogin();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        mostrarToastPop(
+                                "Sesión cerrada en el dispositivo. No se pudo confirmar la revocación en servidor.",
+                                false
+                        );
+                        irALogin();
+                    }
+                });
     }
 
     private void irALogin() {
